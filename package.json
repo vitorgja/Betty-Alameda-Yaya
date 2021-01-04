@@ -1,0 +1,18 @@
+{
+  "name": "chatbot-betty-alameda-yaya",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install": "echo \"Configure seu arquivo '.env'\"",
+    "start": "node index.js",
+    "nodemon": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.5.1",
+    "dotenv": "^8.2.0"
+  }
+}
