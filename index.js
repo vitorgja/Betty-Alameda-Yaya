@@ -19,7 +19,7 @@ client.on("message", function (message) {
       message.reply(`Iniciando ${config.botname}`);
     } else if (command === "stop") {
       ativo = false;
-      message.reply(helpCommands.join('\n'));
+      message.reply(`Parando ${config.botname}`);
     } else if (command === "help") {
       var helpCommands = [];
       helpCommands.push(`Comandos ${config.botname} - ${config.prefix}help`);
