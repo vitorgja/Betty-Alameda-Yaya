@@ -14,5 +14,9 @@
   "dependencies": {
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/vitorgja/Betty-Alameda-Yaya/issues"
+  },
+  "homepage": "https://vitorgja.github.com/Betty-Alameda-Yaya/"
 }

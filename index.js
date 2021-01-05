@@ -7,6 +7,10 @@ const msgs = require("./messages.json");
 const client = new Discord.Client();
 let ativo = false;
 
+client.on('ready', () => {
+  client.user.setActivity('https://git.io/d.js-heroku', {type: 'WATCHING'});
+});
+
 client.on("message", function (message) {
   if (message.author.bot) return;
   if (message.content.startsWith(config.prefix)) {
@@ -33,5 +37,6 @@ client.on("message", function (message) {
   }
 });
 
-console.log(`Iniciando ChatBOT - ${config.botname}`);
-client.login(process.env.BOT_TOKEN); 
+client.login(process.env.BOT_TOKEN)
+      .then(_ => console.log(`Iniciando ChatBOT - ${config.botname}`))
+      .catch(err => console.error(`Falha no Engano! `, err.message)); 
