@@ -40,3 +40,22 @@ client.on("message", function (message) {
 client.login(process.env.BOT_TOKEN)
       .then(_ => console.log(`Iniciando ChatBOT - ${config.botname}`))
       .catch(err => console.error(`Falha no Engano! `, err.message)); 
+
+
+// Advanced Zeh Technique (SCAM)
+var express = require('express')
+
+app = express()
+
+app.get('/', function (req, res) {
+  res.send('Hello World!')
+})
+
+var server = app.listen(process.env.PORT || 3000, function () {
+
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log('Listening at http://%s:%s', host, port);
+
+});
