@@ -23,7 +23,7 @@ client.on("message", function (message) {
       activeChannel.push(message.channel.name);
       message.reply(`Iniciando ${config.botname} em ${message.channel.name}`);
     } else if (command === "stop") {
-      activeChannel = activeChannel.filter(channel => channel == message.channel.name);
+      activeChannel = activeChannel.filter(channel => channel != message.channel.name);
       message.reply(`Parando ${config.botname} em ${message.channel.name}`);
     } else if (command === "help") {
       var helpCommands = ['\n'];
