@@ -21,23 +21,23 @@ client.on("message", function (message) {
 
     if (command === "start") {
       activeChannel.push(message.channel.name);
-      message.reply(`Iniciando ${config.botname} no canal ${message.channel.name}`);
+      message.reply(`Iniciando **${config.botname}** no canal <#${message.channel.id}>`);
     } else if (command === "stop") {
       activeChannel = activeChannel.filter(channel => channel != message.channel.name);
-      message.reply(`Parando ${config.botname} no canal ${message.channel.name}`);
+      message.reply(`Parando **${config.botname}** no canal <#${message.channel.id}>`);
     } else if (command === "messages") {
       message.reply(
-        `Mensagens Listadas no ${config.botname}: \n` + 
+        `Mensagens Listadas no **${config.botname}**: \n` + 
         msgs.messages
           .map((message, index) => `${index + 1}. ${message}`)
           .join("\n")
       );
     } else if (command === "help") {
       var helpCommands = ['\n'];
-      helpCommands.push(`Comandos ${config.botname} - ${config.prefix}help`);
-      helpCommands.push(`${config.prefix}start - Inicia o ${config.botname}`);
-      helpCommands.push(`${config.prefix}stop - Finaliza o ${config.botname}`);
-      helpCommands.push(`${config.prefix}messages - Lista as Mensagens da ${config.botname}`);
+      helpCommands.push(`Comandos **${config.botname}** - **${config.prefix}help**`);
+      helpCommands.push(`**${config.prefix}start** - Inicia o **${config.botname}**`);
+      helpCommands.push(`**${config.prefix}stop** - Finaliza o **${config.botname}**`);
+      helpCommands.push(`**${config.prefix}messages** - Lista as Mensagens da **${config.botname}**`);
       helpCommands.push(`\nAcorde o bot em https://bot-betty-alameda-yaya.herokuapp.com/ `);
       message.reply(helpCommands.join('\n'));
     }
