@@ -34,6 +34,8 @@ client.on("message", function (message) {
   } else if (ativo) {
     var msg = msgs.messages[Math.floor(Math.random() * msgs.messages.length)];
     message.reply(msg);
+  } else if (message.content.includes("seu nome")){
+    message.reply("O meu também é betty");
   }
 });
 
