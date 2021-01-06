@@ -35,7 +35,7 @@ client.on("message", function (message) {
     }
   } else if (activeChannel.indexOf(message.channel.name) > -1) {
     var msg = msgs.messages[Math.floor(Math.random() * msgs.messages.length)];
-    message.reply(message.channel.name + " -> "+ msg);
+    message.reply(msg);
   }
 });
 
