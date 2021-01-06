@@ -42,8 +42,14 @@ client.on("message", function (message) {
       message.reply(helpCommands.join('\n'));
     }
   } else if (activeChannel.indexOf(message.channel.name) > -1) {
-    var msg = msgs.messages[Math.floor(Math.random() * msgs.messages.length)];
-    message.reply(msg);
+
+    if (message.content.includes("seu nome")){
+      var msg = msgs.messages.find(msg => msg.includes("também é betty")); // O meu também é betty
+      msg && message.reply(msg);
+    } else {
+      var msg = msgs.messages[Math.floor(Math.random() * msgs.messages.length)];
+      message.reply(msg);
+    }
 
     const randomArbitrary = (min, max) => Math.random() * (max - min) + min;
     if ( randomArbitrary(0, 100) > 75 ) {
@@ -57,8 +63,6 @@ client.on("message", function (message) {
       })
       .catch(err => console.log(err));
     }
-  } else if (message.content.includes("seu nome")){
-    message.reply("O meu também é betty");
   }
 });
 
