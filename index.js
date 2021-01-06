@@ -57,7 +57,9 @@ client.on("message", function (message) {
       })
       .catch(err => console.log(err));
     }
-  }  
+  } else if (message.content.includes("seu nome")){
+    message.reply("O meu também é betty");
+  }
 });
 
 client.login(process.env.BOT_TOKEN)
