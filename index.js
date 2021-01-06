@@ -44,7 +44,20 @@ client.on("message", function (message) {
   } else if (activeChannel.indexOf(message.channel.name) > -1) {
     var msg = msgs.messages[Math.floor(Math.random() * msgs.messages.length)];
     message.reply(msg);
-  }
+
+    const randomArbitrary = (min, max) => Math.random() * (max - min) + min;
+    if ( randomArbitrary(0, 100) > 75 ) {
+      var voiceChannel = message.member.voice.channel;
+      voiceChannel.join().then(connection =>{
+        const dispatcher = connection.play('http://www.pixtar.com.br/sons/OFolgado.mp3');
+        // const dispatcher = connection.play('./src/audio/OFolgado.mp3');
+        dispatcher.on("finish", end => {
+          voiceChannel.leave();
+        });
+      })
+      .catch(err => console.log(err));
+    }
+  }  
 });
 
 client.login(process.env.BOT_TOKEN)
