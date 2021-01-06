@@ -5,10 +5,11 @@ const config = require("./config.json");
 const msgs = require("./messages.json");
 
 const client = new Discord.Client();
-let ativo = false;
+
+let activeChannel = [];
 
 client.on('ready', () => {
-  client.user.setActivity('https://git.io/d.js-heroku', {type: 'WATCHING'});
+  client.user.setActivity('https://bot-betty-alameda-yaya.herokuapp.com/', {type: 'WATCHING'});
 });
 
 client.on("message", function (message) {
@@ -19,21 +20,22 @@ client.on("message", function (message) {
     const command = args.shift().toLowerCase();
 
     if (command === "start") {
-      ativo = true;
-      message.reply(`Iniciando ${config.botname}`);
+      activeChannel.push(message.channel.name);
+      message.reply(`Iniciando ${config.botname} em ${message.channel.name}`);
     } else if (command === "stop") {
-      ativo = false;
-      message.reply(`Parando ${config.botname}`);
+      activeChannel = activeChannel.filter(channel => channel == message.channel.name);
+      message.reply(`Parando ${config.botname} em ${message.channel.name}`);
     } else if (command === "help") {
-      var helpCommands = [];
+      var helpCommands = ['\n'];
       helpCommands.push(`Comandos ${config.botname} - ${config.prefix}help`);
       helpCommands.push(`${config.prefix}start - Inicia o ${config.botname}`);
       helpCommands.push(`${config.prefix}stop - Finaliza o ${config.botname}`);
+      helpCommands.push(`\nAcorde o bot em https://bot-betty-alameda-yaya.herokuapp.com/ `);
       message.reply(helpCommands.join('\n'));
     }
-  } else if (ativo) {
+  } else if (activeChannel.indexOf(message.channel.name) > -1) {
     var msg = msgs.messages[Math.floor(Math.random() * msgs.messages.length)];
-    message.reply(msg);
+    message.reply(message.channel.name + " -> "+ msg);
   }
 });
 
@@ -48,7 +50,7 @@ var express = require('express')
 app = express()
 
 app.get('/', function (req, res) {
-  res.send('Hello World!')
+  res.send(`Hello ${config.botname}, I'm waking up`)
 })
 
 var server = app.listen(process.env.PORT || 3000, function () {
