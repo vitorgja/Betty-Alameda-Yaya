@@ -33,7 +33,7 @@ module.exports = {
       }
     } else if (this.activeChannel.indexOf(message.channel.name) > -1) {
 
-      if (message.content.includes("seu nome")) {
+      if (message.content.includes("nome")){
         var msg = msgs.messages.find(msg => msg.includes("também é betty")); // O meu também é betty
         msg && message.reply(msg);
       } else {
