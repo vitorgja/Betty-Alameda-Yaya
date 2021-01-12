@@ -32,9 +32,10 @@ module.exports = {
   messagOfTheDay: function(client) {
     /**
      * API Url to Trending https://api.giphy.com/v1/gifs/trending
-     * API Url to Search https://api.giphy.com/v1/gifs/search
+     * API Url to Gifs Search https://api.giphy.com/v1/gifs/search
+     * API Url to Stickers Search https://api.giphy.com/v1/stickers/search
      */
-    const URL_GIPHY = 'https://api.giphy.com/v1/gifs/search';
+    const URL_GIPHY = 'https://api.giphy.com/v1/stickers/search';
     const api_key = 'Gc7131jiJuvI7IdN0HZ1D7nh0ow5BU6g';
     const limit = 10;
     request
