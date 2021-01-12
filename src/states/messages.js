@@ -1,3 +1,5 @@
+const config = require("../../config.json");
+const msgs = require("../../messages.json");
 
 
 module.exports = {
@@ -42,7 +44,7 @@ module.exports = {
       }
 
       const randomArbitrary = (min, max) => Math.random() * (max - min) + min;
-      if (randomArbitrary(0, 100) > 75) {
+      if (randomArbitrary(0, 100) > 75) {   
         var voiceChannel = message.member.voice.channel;
         voiceChannel.join().then(connection => {
           const dispatcher = connection.play('http://www.pixtar.com.br/sons/OFolgado.mp3');
