@@ -30,7 +30,7 @@ export class Ready {
   ready (client: Discord.Client) {
     client &&
       client.user &&
-      client.user.setActivity('https://bot-betty-alameda-yaya.herokuapp.com/', {
+      client.user.setActivity('to !help', {
         type: 'WATCHING'
       });
 
