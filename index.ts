@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
 import Discord from 'discord.js';
 import * as config from './src/config/config.json';
-import * as Ready from './src/states/ready';
+import { Ready } from './src/states/ready';
 import { Messages } from './src/states/messages';
 
 dotenv.config();
@@ -13,7 +13,7 @@ const client = new Discord.Client();
 let activeChannel: string[] = [];
 
 // States
-client.on('ready', () => Ready.ready(client));
+client.on('ready', () => new Ready().ready(client));
 client.on('message', (message: Discord.Message) => {
   let msg = new Messages(message, activeChannel);
   msg.messages();

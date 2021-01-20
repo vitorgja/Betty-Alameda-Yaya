@@ -4,6 +4,7 @@ import * as config from '../config/config.json';
 import * as msgs from '../../messages.json';
 
 import * as DB from '../config/database';
+import { NumberHelper } from '../helpers/number.helper';
 
 export class Messages {
   activeChannel: string[] = [];
@@ -61,9 +62,7 @@ export class Messages {
   }
 
   voipFolgado (random = false) {
-    const randomArbitrary = (min: number, max: number) =>
-      Math.random() * (max - min) + min;
-    if (!random || randomArbitrary(0, 100) > 75) {
+    if (!random || NumberHelper.randomInRange(0, 100) > 75) {
       var voiceChannel =
         this.message.member && this.message.member.voice.channel;
       voiceChannel &&
