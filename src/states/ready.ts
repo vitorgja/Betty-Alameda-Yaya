@@ -34,8 +34,8 @@ export class Ready {
         type: 'WATCHING'
       });
 
-    const channels = client.channels.cache.filter(
-      (channel: any) => channel.name === channelDefault
+    const channels = client.channels.cache.filter((channel: any) =>
+      channel.name.includes(channelDefault)
     );
 
     channels.forEach(channel => {
@@ -50,7 +50,6 @@ export class Ready {
             channels.forEach((channel: any) => {
               DB.client.query(DB.STATUS_ADD, [
                 `Message to Day: ${getMsgSemana}`,
-                true,
                 channel.name,
                 channel.id,
                 channel.type
