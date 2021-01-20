@@ -1,10 +1,6 @@
 import * as dotenv from 'dotenv';
 import Discord from 'discord.js';
-import { QueryResult } from 'pg';
-
-import * as DB from './src/config/database';
 import * as config from './src/config/config.json';
-
 import * as Ready from './src/states/ready';
 import { Messages } from './src/states/messages';
 
