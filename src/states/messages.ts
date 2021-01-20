@@ -219,7 +219,7 @@ export class Messages {
     if (result && result.rows && result.rows.length == 1) {
       const msg = result.rows[0].message;
 
-      this.message.reply('DB: ' + msg);
+      this.message.reply(msg);
     }
   };
   callbackAddMessage = (err: any, result: any) => {
