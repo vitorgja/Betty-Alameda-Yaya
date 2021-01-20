@@ -149,7 +149,8 @@ export class Messages {
           );
           break;
         case 'rm':
-          DB.client.query(DB.MESSAGE_REMOVE, [param], this.callbackRmMessage);
+          const id = parseInt(param) || 0;
+          DB.client.query(DB.MESSAGE_REMOVE, [id, param], this.callbackRmMessage);
           break;
         default:
           var helpCommands = ['\n'];
