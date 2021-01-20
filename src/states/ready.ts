@@ -28,33 +28,37 @@ const getMsgSemana = (function (date) {
 
 export class Ready {
   ready (client: Discord.Client) {
-    client && client.user && client.user.setActivity('https://bot-betty-alameda-yaya.herokuapp.com/', {
-      type: 'WATCHING'
-    });
+    client &&
+      client.user &&
+      client.user.setActivity('https://bot-betty-alameda-yaya.herokuapp.com/', {
+        type: 'WATCHING'
+      });
 
     const channels = client.channels.cache.filter(
       (channel: any) => channel.name === channelDefault
     );
 
     channels.forEach(channel => {
+      DB.client.query(
+        DB.STATUS_READY,
+        [channel.id],
+        (err: any, result: any) => {
+          if (err) return;
 
-      DB.client.query(DB.STATUS_READY, [channel.id], (err: any, result: any) => {
-        if (err) return; 
-    
-        if (result && result.rows && result.rows.length == 0) {
-          
-          this.messagOfTheDay(channel);
-          channels.forEach((channel: any) => {
-            DB.client.query(DB.STATUS_ADD, [
-              `Message to Day: ${getMsgSemana}`, 
-              true, 
-              channel.name,
-              channel.id,
-              channel.type
-            ])
-          });
+          if (result && result.rows && result.rows.length == 0) {
+            this.messagOfTheDay(channel);
+            channels.forEach((channel: any) => {
+              DB.client.query(DB.STATUS_ADD, [
+                `Message to Day: ${getMsgSemana}`,
+                true,
+                channel.name,
+                channel.id,
+                channel.type
+              ]);
+            });
+          }
         }
-      })
+      );
     });
 
     // client.channels.cache.filter(msg => msg.name.includes('geral') ).map(msg => {
@@ -80,13 +84,12 @@ export class Ready {
           if (body && body.data && body.data.length >= 0) {
             const index = NumberHelper.randomInRange(0, body.data.length - 1);
             const giff: GiphySticker = body.data[index] as GiphySticker;
-            
+
             const message = {
               content: `${giff.title}`,
               files: [giff.images.original.url]
             };
             channel.send(message);
-            
           } else {
             console.log(`Hoje não tem Giphy \n- search: ${getMsgSemana}`);
           }
@@ -99,9 +102,8 @@ export class Ready {
 }
 
 interface GiphySticker {
-  title: string,
-  images: any
+  title: string;
+  images: any;
 }
-
 
 module.exports = { Ready };

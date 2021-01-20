@@ -72,7 +72,7 @@
     "resolveJsonModule": true
   },
   "include": [
-    "./index.ts",
+    "./index.js",
     "./src/**/*"
   ],
   "exclude": [

@@ -1,15 +1,9 @@
-import * as dotenv from 'dotenv';
 import Discord from 'discord.js';
-import * as config from './src/config/config.json';
-import { Ready } from './src/states/ready';
-import { Messages } from './src/states/messages';
-
-dotenv.config();
-require('dotenv').config();
-// const Discord = require("discord.js");
+import * as config from './config/config.json';
+import { Ready } from './states/ready';
+import { Messages } from './states/messages';
 
 const client = new Discord.Client();
-
 let activeChannel: string[] = [];
 
 // States

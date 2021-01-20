@@ -7,7 +7,7 @@
     "install": "echo \"Configure seu arquivo '.env'\"",
     "build": "tsc",
     "dev": "ts-node index.ts",
-    "start": "npm run build && node ./dist/index.js ./dist/src/server.js",
+    "start": "npm run build && node ./dist/index.js ",
     "prod": "yarn build && yarn start",
     "format": "prettier-standard './**/*.ts'",
     "nodemon": "./node_modules/.bin/nodemon ./dist/index.js",
