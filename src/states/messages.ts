@@ -77,7 +77,12 @@ export class Messages {
               voiceChannel && voiceChannel.leave();
             });
           })
-          .catch(err => console.log(err));
+          .catch(err => {
+            this.message.reply(
+              `eu não tenho permissão no canal <#${voiceChannel?.id}>`
+            );
+            console.log(err);
+          });
     }
   }
 
