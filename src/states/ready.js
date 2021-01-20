@@ -1,6 +1,8 @@
 const request = require('request'),
       fs = require('fs');
 
+const env = process.env.NODE_ENV || 'development',
+      channelDefault = env  != 'development' ? 'geral' : 'dev-betty';
 
 const getMsgSemana = (function(date) {
   switch (date.getDay()) {
@@ -18,15 +20,24 @@ module.exports = {
   ready: function (client) {
     client.user.setActivity('https://bot-betty-alameda-yaya.herokuapp.com/', { type: 'WATCHING' });
 
-    const channelName = 'geral';
-    const channels = client.channels.cache.filter(channel => channel.name === channelName);
+    const channels = client.channels
+                           .cache
+                           .filter(channel => channel.name === channelDefault);
+
+
+
     
-    if (channels) {
-      const message = `Acordei Parças`;
-      channels.map( channel => channel.send(message) );
-    }
+    // if (channels) {
+    //   const message = `Acordei Parças`;
+    //   channels.map( channel => channel.send(message) );
+    // }
 
     this.messagOfTheDay(client)
+
+
+    client.channels.cache.filter(msg => msg.name.includes('geral') ).map(msg => {
+      console.log( "msg: ", msg.messages.cache );
+    });
   },
 
   messagOfTheDay: function(client) {
@@ -47,11 +58,15 @@ module.exports = {
         // TODO: Get Random DATA
         const giff = body.data[0];
 
-        const channelName = 'geral';
-        const channels = client.channels.cache.filter(channel => channel.name === channelName)
+        const channels = client.channels
+                               .cache
+                               .filter(channel => channel.name === channelDefault)
 
         if (channels) {
-          const message = `${giff.title} \n ${giff.images.original.url}`;
+          const message = {
+            content: `${giff.title}`,
+            files: [giff.images.original.url]
+          }
           channels.map( channel => channel.send(message) );
         }
       } else {
