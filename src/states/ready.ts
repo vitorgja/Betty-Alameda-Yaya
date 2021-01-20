@@ -36,35 +36,33 @@ export class Ready {
       (channel: any) => channel.name === channelDefault
     );
 
-    
+    channels.forEach(channel => {
 
-    DB.client.query(DB.STATUS_READY, [], (err: any, result: any) => {
-      if (err) {
-        return;
-      }
-  
-      if (result && result.rows && result.rows.length == 0) {
-        const msg = result.rows[0].message;
-  
-        this.messagOfTheDay(client);
-        channels.forEach((channel: any) => {
-          DB.client.query(DB.STATUS_ADD, [
-            `Message to Day: ${getMsgSemana}`, 
-            true, 
-            channel.name,
-            channel.id,
-            channel.type
-          ])
-        });
-      }
-    })
+      DB.client.query(DB.STATUS_READY, [channel.id], (err: any, result: any) => {
+        if (err) return; 
+    
+        if (result && result.rows && result.rows.length == 0) {
+          
+          this.messagOfTheDay(channel);
+          channels.forEach((channel: any) => {
+            DB.client.query(DB.STATUS_ADD, [
+              `Message to Day: ${getMsgSemana}`, 
+              true, 
+              channel.name,
+              channel.id,
+              channel.type
+            ])
+          });
+        }
+      })
+    });
 
     // client.channels.cache.filter(msg => msg.name.includes('geral') ).map(msg => {
     //   console.log( "msg: ", msg.messages.cache );
     // });
   }
 
-  messagOfTheDay (client: any) {
+  messagOfTheDay (channel: any) {
     /**
      * API Url to Trending https://api.giphy.com/v1/gifs/trending
      * API Url to Gifs Search https://api.giphy.com/v1/gifs/search
@@ -82,18 +80,13 @@ export class Ready {
           if (body && body.data && body.data.length >= 0) {
             const index = NumberHelper.randomInRange(0, body.data.length - 1);
             const giff: GiphySticker = body.data[index] as GiphySticker;
-
-            const channels = client.channels.cache.filter(
-              (channel: any) => channel.name === channelDefault
-            );
-
-            if (channels) {
-              const message = {
-                content: `${giff.title}`,
-                files: [giff.images.original.url]
-              };
-              channels.map((channel: any) => channel.send(message));
-            }
+            
+            const message = {
+              content: `${giff.title}`,
+              files: [giff.images.original.url]
+            };
+            channel.send(message);
+            
           } else {
             console.log(`Hoje não tem Giphy \n- search: ${getMsgSemana}`);
           }
@@ -112,62 +105,3 @@ interface GiphySticker {
 
 
 module.exports = { Ready };
-
-// module.exports = {
-//   ready: function (client) {
-//     client.user.setActivity('https://bot-betty-alameda-yaya.herokuapp.com/', { type: 'WATCHING' });
-
-//     const channels = client.channels
-//                            .cache
-//                            .filter((channel: any) => channel.name === channelDefault);
-
-//     // if (channels) {
-//     //   const message = `Acordei Parças`;
-//     //   channels.map( (channel: any) => channel.send(message) );
-//     // }
-
-//     this.messagOfTheDay(client)
-
-//     // client.channels.cache.filter(msg => msg.name.includes('geral') ).map(msg => {
-//     //   console.log( "msg: ", msg.messages.cache );
-//     // });
-//   },
-
-//   messagOfTheDay: function(client) {
-//     /**
-//      * API Url to Trending https://api.giphy.com/v1/gifs/trending
-//      * API Url to Gifs Search https://api.giphy.com/v1/gifs/search
-//      * API Url to Stickers Search https://api.giphy.com/v1/stickers/search
-//      */
-//     const URL_GIPHY = 'https://api.giphy.com/v1/stickers/search';
-//     const api_key = 'Gc7131jiJuvI7IdN0HZ1D7nh0ow5BU6g';
-//     const limit = 10;
-//     request
-//     .get(`${URL_GIPHY}?api_key=${api_key}&limit=${limit}&q=${getMsgSemana}`, function(err, response, body) {
-//       body = JSON.parse(body);
-
-//       if (body && body.data && body.data.length > 0) {
-
-//         const index = NumberHelper.randomInRange(0, body.data.length - 1);
-//         const giff = body.data[index];
-
-//         const channels = client.channels
-//                                .cache
-//                                .filter((channel: any) => channel.name === channelDefault)
-
-//         if (channels) {
-//           const message = {
-//             content: `${giff.title}`,
-//             files: [giff.images.original.url]
-//           }
-//           channels.map( (channel: any) => channel.send(message) );
-//         }
-//       } else {
-//         console.log(`Hoje não tem Giphy \n search: ${getMsgSemana}`);
-//       }
-//     })
-//     .on('error', function(err) {
-//       console.error('Problema na conexão com o Giphy')
-//     })
-//   }
-// };
